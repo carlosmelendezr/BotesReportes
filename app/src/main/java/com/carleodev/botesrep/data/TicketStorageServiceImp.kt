@@ -10,20 +10,20 @@ import kotlinx.coroutines.tasks.await
 
 class TicketStorageServiceImp(override val firestore: FirebaseFirestore) :TicketStorageService {
 
-    override val tasks: Flow<List<TicketNube>>
+    override val tasks: Flow<List<ResumenVenta>>
         get() = emptyFlow()
 
-    override suspend fun getTask(taskId: String): TicketNube? =
+    override suspend fun getTask(taskId: String): ResumenVenta? =
         firestore.collection(TASK_COLLECTION).document(taskId).get().await().toObject()
 
-    override suspend fun save(task: TicketNube): String =
+    override suspend fun save(task: ResumenVenta): String =
         trace(SAVE_TASK_TRACE) {
             firestore.collection(TASK_COLLECTION).add(task).await().id
         }
 
-    override suspend fun update(task: TicketNube): Unit =
+    override suspend fun update(task: ResumenVenta): Unit =
         trace(UPDATE_TASK_TRACE) {
-            firestore.collection(TASK_COLLECTION).document(task.id).set(task).await()
+            firestore.collection(TASK_COLLECTION).document(task.id.toString()).set(task).await()
         }
 
     override suspend fun delete(taskId: String) {
@@ -32,7 +32,7 @@ class TicketStorageServiceImp(override val firestore: FirebaseFirestore) :Ticket
 
     companion object {
         private const val USER_ID_FIELD = "userId"
-        private const val TASK_COLLECTION = "tickets"
+        private const val TASK_COLLECTION = "resumen"
         private const val SAVE_TASK_TRACE = "saveTask"
         private const val UPDATE_TASK_TRACE = "updateTask"
     }
