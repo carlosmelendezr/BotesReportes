@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.carleodev.botesrep.AppViewModelProvider
+import com.carleodev.botesrep.data.ResumenVenta
 import com.carleodev.botesrep.navigation.NavigationDestination
 import com.carleodev.botesrep.ui.theme.BotesRepTopAppBar
 
@@ -61,19 +62,14 @@ fun ReporteDiaScreen(
             }
         },
     ) { innerPadding ->
-        MostarPagos(listaUiState.itemList,
-            boteAzul =boteAzul+boteAzulExp,
-            boteAmarillo = boteAmarillo+boteAmarilloExp,
-            botesAnulados = botesAnulados,
+        MostarPagos(viewModel.resumenVenta,
             modifier = modifier.padding(innerPadding))
 
     }
 }
 
 @Composable
-fun MostarPagos(lista:List<Pagos>,
-                boteAzul:Int, boteAmarillo:Int,
-                botesAnulados:Int,
+fun MostarPagos(resumenVenta: ResumenVenta,
                 modifier: Modifier = Modifier)
 {
     Card() {
@@ -87,21 +83,21 @@ fun MostarPagos(lista:List<Pagos>,
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
-                text = "TOTAL BOTES AZULES : ${boteAzul}",
+                text = "TOTAL BOTES AZULES : ${resumenVenta.boteAzules}",
                 style = MaterialTheme.typography.h6,
                 fontSize = 12.sp,
                 textAlign = TextAlign.Left,
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
-                text = "TOTAL BOTES AMARILLOS : ${boteAmarillo}",
+                text = "TOTAL BOTES AMARILLOS : ${resumenVenta.boteAmarillo}",
                 style = MaterialTheme.typography.h6,
                 fontSize = 12.sp,
                 textAlign = TextAlign.Left,
                 modifier = Modifier.fillMaxWidth()
             )
             Text(
-                text = "TOTAL BOTES ANULADOS : ${botesAnulados}",
+                text = "TOTAL BOTES ANULADOS : ${resumenVenta.anulados}",
                 style = MaterialTheme.typography.h6,
                 color = Color.Red,
                 fontSize = 12.sp,
@@ -109,54 +105,21 @@ fun MostarPagos(lista:List<Pagos>,
                 modifier = Modifier.fillMaxWidth()
             )
 
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(1),
-                contentPadding = PaddingValues(
-                    start = 8.dp,
-                    top = 8.dp,
-                    end = 8.dp,
-                    bottom = 8.dp
-                ),
-                horizontalArrangement = Arrangement.spacedBy(1.dp),
-                verticalArrangement = Arrangement.spacedBy(1.dp),
-                content = {
-                    items(items = lista) {
-                        ItemPago(it)
-                    }
-                }
 
-            )
         }
 
     }
 }
 
-@Composable
-fun ItemPago(pagos:Pagos) {
 
-
-    Row() {
-        when (pagos.tipopago) {
-            1 -> Text("DIVISA")
-            2 -> Text("PV Venezuela")
-            3 -> Text("PV BancaAmiga")
-            4 -> Text("EFECTIVO BS")
-            5 -> Text("PAGO MOVIL")
-        }
-        Text("${pagos.monto}",
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Right)
-    }
-
-
-}
 
 
 @Composable
 @Preview
 fun  MostarPagosPreview(){
-    MostarPagos(listOf(Pagos(idticket = 1, tipopago = 1,monto = 600.00,fecha=20230730),
-        Pagos(idticket = 1, tipopago = 2,monto = 5500.00, fecha=20230730)), boteAzul = 8,
-        boteAmarillo = 3, botesAnulados = 2)
+    MostarPagos(ResumenVenta(id="1b", boteAzules = 10,
+        boteAmarillo = 20, anulados = 2,
+        pagosDivisa = 100.0, pagosVenezuela = 2500.0,
+        pagosBancaAmiga = 1500.0, pagosEfectivoBs = 850.0, pagosMovil = 900.0))
 
 }

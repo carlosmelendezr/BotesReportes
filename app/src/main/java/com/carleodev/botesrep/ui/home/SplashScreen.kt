@@ -32,6 +32,7 @@ import androidx.navigation.NavHostController
 import com.carleodev.botesrep.AppViewModelProvider
 import com.carleodev.botesrep.R
 import com.carleodev.botesrep.navigation.NavigationDestination
+import com.carleodev.botesrep.ui.ReporteDiaDestination
 import com.google.firebase.BuildConfig
 
 
@@ -62,11 +63,8 @@ fun AnimatedSplashScreen(navController: NavHostController,
         startAnimation = true
         delay(4000)
         navController.popBackStack()
-        if (viewModel.existeDia>0) {
-            //navController.navigate(HorasDestination.route)
-        } else {
-            //navController.navigate(CrearDiaDestination.route)
-        }
+        navController.navigate(ReporteDiaDestination.route)
+
     }
     Splash(alpha = alphaAnim.value)
 }

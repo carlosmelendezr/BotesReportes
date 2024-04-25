@@ -14,39 +14,25 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.carleodev.botesrep.data.TicketNube
 import com.carleodev.botesrep.data.TicketStorageService
 import com.carleodev.botesrep.data.TicketStorageServiceImp
-import com.carleodev.botesrep.ui.theme.BotesReportesTheme
+import com.carleodev.botesrep.ui.theme.BotesRepApp
+import com.carleodev.botesrep.ui.theme.BotesRepTheme
 import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
 import com.google.firebase.firestore.firestore
 
 class MainActivity : ComponentActivity() {
 
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        FirebaseApp.initializeApp(this)
-
-        val ticketStorageService: TicketStorageService by lazy {
-            TicketStorageServiceImp(Firebase.firestore)
-        }
-
         setContent {
-            BotesReportesTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android",
-                        ticketStorageService=ticketStorageService)
-                }
+            BotesRepTheme {
+                BotesRepApp()
             }
-        }
-    }
+        } }
+
+
+
 }
 
 @Composable
