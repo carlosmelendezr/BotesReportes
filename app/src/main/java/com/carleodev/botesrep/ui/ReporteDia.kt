@@ -95,7 +95,7 @@ fun MostarPagos(resumenVenta: ResumenVenta,
             .clip(RoundedCornerShape(topStart = 30.dp))
             .clip(CutCornerShape(bottomEnd = 30.dp))
             .background(Color.LightGray)
-            .border(5.dp, MaterialTheme.colors.secondary, shape)
+            .border(5.dp, MaterialTheme.colors.background, shape)
             .padding(14.dp)
         ) {
         Column( )
