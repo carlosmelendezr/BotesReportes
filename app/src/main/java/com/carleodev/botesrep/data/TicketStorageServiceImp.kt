@@ -1,19 +1,31 @@
 package com.carleodev.botesrep.data
 
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.dataObjects
+import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.perf.trace
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.emptyFlow
+import kotlinx.coroutines.flow.onCompletion
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.tasks.await
 
 
 class TicketStorageServiceImp(override val firestore: FirebaseFirestore) :TicketStorageService {
 
-    override val tasks: Flow<List<ResumenVenta>>
-        get() = emptyFlow()
 
-    override suspend fun getTask(taskId: String): ResumenVenta? =
+    /*override val tasks: Flow<List<ResumenVenta>>
+        get() = emptyFlow()*/
+
+    override val tasks: Flow<List<ResumenVenta>>
+        get() = firestore.collection("resumen").
+        orderBy(FieldPath.documentId(), Query.Direction.DESCENDING).dataObjects()
+
+     override suspend fun getTask(taskId: String): ResumenVenta? =
         firestore.collection(TASK_COLLECTION).document(taskId).get().await().toObject()
 
     override suspend fun save(task: ResumenVenta): String =

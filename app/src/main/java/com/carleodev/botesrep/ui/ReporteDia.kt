@@ -1,9 +1,8 @@
 package com.carleodev.botesrep.ui
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,6 +14,7 @@ import androidx.compose.runtime.getValue
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+
 
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,6 +40,7 @@ fun ReporteDiaScreen(
     navigateToDetalles:()->Unit,
     viewModel:ReporteDiaViewModel = viewModel(factory = AppViewModelProvider.Factory))
 {
+    val listaresumenVenta = viewModel.listaResumenVenta.collectAsState(emptyList())
 
     Scaffold(
         topBar = {
@@ -62,11 +63,19 @@ fun ReporteDiaScreen(
             }
         },
     ) { innerPadding ->
-        MostarPagos(viewModel.resumenVenta,
-            modifier = modifier.padding(innerPadding))
+        LazyColumn {
+            items(listaresumenVenta.value) {
+                item: ResumenVenta ->  MostarPagos(item,
+                modifier = modifier.padding(innerPadding))
+            }
+        }
+
 
     }
 }
+
+
+
 
 @Composable
 fun MostarPagos(resumenVenta: ResumenVenta,

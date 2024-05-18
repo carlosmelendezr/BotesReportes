@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.carleodev.botesrep.AppViewModelProvider.botesRepApplication
 import com.carleodev.botesrep.data.TicketNube
 import com.carleodev.botesrep.data.TicketStorageService
 import com.carleodev.botesrep.data.TicketStorageServiceImp
@@ -24,6 +25,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
 
         setContent {
             BotesRepTheme {

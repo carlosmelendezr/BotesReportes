@@ -1,6 +1,5 @@
 package com.carleodev.botesrep
 
-import android.app.Application
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
@@ -23,12 +22,14 @@ object AppViewModelProvider {
         initializer {
             ReporteDiaViewModel(
                 this.createSavedStateHandle(),
+                botesRepApplication().container.ticketStorageService,
+                botesRepApplication()
 
             )
         }
 
     }
 
-    fun CreationExtras.botesApplication(): BotesRepApplication =
+    fun CreationExtras.botesRepApplication(): BotesRepApplication =
         (this[AndroidViewModelFactory.APPLICATION_KEY] as BotesRepApplication)
 }

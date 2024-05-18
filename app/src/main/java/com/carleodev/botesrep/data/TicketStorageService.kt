@@ -5,6 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface TicketStorageService {
     val firestore: FirebaseFirestore
+
     val tasks: Flow<List<ResumenVenta>>
     suspend fun getTask(taskId: String): ResumenVenta?
     suspend fun save(task: ResumenVenta): String
