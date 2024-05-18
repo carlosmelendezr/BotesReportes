@@ -1,6 +1,7 @@
 package com.carleodev.botesrep.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,6 +13,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Airlines
+import androidx.compose.material3.AlertDialogDefaults.shape
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -88,7 +90,15 @@ fun MostarPagos(resumenVenta: ResumenVenta,
                 modifier: Modifier = Modifier)
 {
     Card() {
-        Column()
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .clip(RoundedCornerShape(topStart = 30.dp))
+            .clip(CutCornerShape(bottomEnd = 30.dp))
+            .background(Color.LightGray)
+            .border(5.dp, MaterialTheme.colors.secondary, shape)
+            .padding(14.dp)
+        ) {
+        Column( )
         {
             Text(
                 text = "Fecha ${resumenVenta.id}",
@@ -127,13 +137,7 @@ fun MostarPagos(resumenVenta: ResumenVenta,
                 )
             }
 
-            Box(modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(topStart = 30.dp))
-                .clip(CutCornerShape(bottomEnd = 30.dp))
-                .background(Color.Cyan)
-                .padding(18.dp)
-            ) {
+
                 Column() {
 
 
