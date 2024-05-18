@@ -1,8 +1,13 @@
 package com.carleodev.botesrep.ui
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CutCornerShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -13,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 
 
@@ -85,37 +91,97 @@ fun MostarPagos(resumenVenta: ResumenVenta,
         Column()
         {
             Text(
-                text = "RESUMEN DE VENTA",
-                style = MaterialTheme.typography.h6,
-                fontSize = 28.sp,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Text(
-                text = "TOTAL BOTES AZULES : ${resumenVenta.boteAzules}",
-                style = MaterialTheme.typography.h6,
-                fontSize = 12.sp,
+                text = "Fecha ${resumenVenta.id}",
+                style = MaterialTheme.typography.h5,
+                fontSize = 18.sp,
                 textAlign = TextAlign.Left,
                 modifier = Modifier.fillMaxWidth()
             )
-            Text(
-                text = "TOTAL BOTES AMARILLOS : ${resumenVenta.boteAmarillo}",
-                style = MaterialTheme.typography.h6,
-                fontSize = 12.sp,
-                textAlign = TextAlign.Left,
-                modifier = Modifier.fillMaxWidth()
-            )
-            Text(
-                text = "TOTAL BOTES ANULADOS : ${resumenVenta.anulados}",
-                style = MaterialTheme.typography.h6,
-                color = Color.Red,
-                fontSize = 12.sp,
-                textAlign = TextAlign.Left,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Row (modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween) {
+                Text(
+                    text = "AZULES : ${resumenVenta.boteAzules}",
+                    style = MaterialTheme.typography.h6,
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    textAlign = TextAlign.Left,
+                    modifier = Modifier.background(Color.Blue)
+                )
 
+                Text(
+                    text = "AMARILLOS : ${resumenVenta.boteAmarillo}",
+                    style = MaterialTheme.typography.h6,
+                    color = Color.Black,
+                    fontSize = 12.sp,
+                    textAlign = TextAlign.Right,
+                    modifier = Modifier.background(Color.Yellow)
+                )
+                Text(
+                    text = "ANULADOS : ${resumenVenta.anulados}",
+                    style = MaterialTheme.typography.h6,
+                    color = Color.White,
+                    fontSize = 12.sp,
+                    textAlign = TextAlign.Left,
+                    modifier = Modifier.background(Color.Red)
+
+                )
+            }
+
+            Box(modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(topStart = 30.dp))
+                .clip(CutCornerShape(bottomEnd = 30.dp))
+                .background(Color.Cyan)
+                .padding(18.dp)
+            ) {
+                Column() {
+
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "EFECTIVO BS: ${resumenVenta.pagosEfectivoBs}",
+                            style = MaterialTheme.typography.h6,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Left,
+
+                            )
+                        Text(
+                            text = "EFECTIVO $: ${resumenVenta.pagosDivisa}",
+                            style = MaterialTheme.typography.h6,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Left,
+
+                            )
+                    }
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween
+                    ) {
+                        Text(
+                            text = "Bancamiga: ${resumenVenta.pagosBancaAmiga}",
+                            style = MaterialTheme.typography.h6,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Left,
+
+                            )
+                        Text(
+                            text = "Venezuela : ${resumenVenta.pagosVenezuela}",
+                            style = MaterialTheme.typography.h6,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Left,
+
+                            )
+                    }
+                }
+            }
 
         }
+
+
 
     }
 }
