@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.carleodev.botesrep.AppViewModelProvider
+import com.carleodev.botesrep.Util.convertIntToTimeScreen
 import com.carleodev.botesrep.data.ResumenVenta
 import com.carleodev.botesrep.navigation.NavigationDestination
 import com.carleodev.botesrep.ui.theme.BotesRepTopAppBar
@@ -89,6 +90,7 @@ fun ReporteDiaScreen(
 fun MostarPagos(resumenVenta: ResumenVenta,
                 modifier: Modifier = Modifier)
 {
+    val fecha = convertIntToTimeScreen(resumenVenta.id.toInt())
     Card() {
         Box(modifier = Modifier
             .fillMaxWidth()
@@ -100,13 +102,7 @@ fun MostarPagos(resumenVenta: ResumenVenta,
         ) {
         Column( )
         {
-            Text(
-                text = "Fecha ${resumenVenta.id}",
-                style = MaterialTheme.typography.h5,
-                fontSize = 18.sp,
-                textAlign = TextAlign.Left,
-                modifier = Modifier.fillMaxWidth()
-            )
+
             Row (modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween) {
                 Text(
@@ -173,6 +169,13 @@ fun MostarPagos(resumenVenta: ResumenVenta,
 
                             )
                         Text(
+                            text = "Pago Movil: ${resumenVenta.pagosMovil}",
+                            style = MaterialTheme.typography.h6,
+                            fontSize = 12.sp,
+                            textAlign = TextAlign.Left,
+
+                            )
+                        Text(
                             text = "Venezuela : ${resumenVenta.pagosVenezuela}",
                             style = MaterialTheme.typography.h6,
                             fontSize = 12.sp,
@@ -181,7 +184,17 @@ fun MostarPagos(resumenVenta: ResumenVenta,
                             )
                     }
                 }
+            Divider(color = Color.White, thickness = 1.dp)
+            Text(
+                text = "Fecha ${fecha}",
+                style = MaterialTheme.typography.h5,
+                fontSize = 12.sp,
+                textAlign = TextAlign.Right,
+                modifier = Modifier.fillMaxWidth()
+            )
+
             }
+
 
         }
 

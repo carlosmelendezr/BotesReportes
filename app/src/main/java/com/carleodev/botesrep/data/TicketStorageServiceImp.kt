@@ -23,7 +23,7 @@ class TicketStorageServiceImp(override val firestore: FirebaseFirestore) :Ticket
 
     override val tasks: Flow<List<ResumenVenta>>
         get() = firestore.collection("resumen").
-        orderBy(FieldPath.documentId(), Query.Direction.DESCENDING).dataObjects()
+        orderBy(FieldPath.documentId(), Query.Direction.DESCENDING).limit(30).dataObjects()
 
      override suspend fun getTask(taskId: String): ResumenVenta? =
         firestore.collection(TASK_COLLECTION).document(taskId).get().await().toObject()
