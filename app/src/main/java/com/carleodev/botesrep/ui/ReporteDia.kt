@@ -30,10 +30,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.carleodev.botesrep.AppViewModelProvider
+import com.carleodev.botesrep.Util.convertDateToInt
 import com.carleodev.botesrep.Util.convertIntToTimeScreen
 import com.carleodev.botesrep.data.ResumenVenta
 import com.carleodev.botesrep.navigation.NavigationDestination
 import com.carleodev.botesrep.ui.theme.BotesRepTopAppBar
+import java.util.Date
 
 
 object ReporteDiaDestination : NavigationDestination {
@@ -90,15 +92,21 @@ fun ReporteDiaScreen(
 fun MostarPagos(resumenVenta: ResumenVenta,
                 modifier: Modifier = Modifier)
 {
-    val fecha = convertIntToTimeScreen(resumenVenta.id.toInt())
+    val fecha = fechadia(resumenVenta.id.toInt())
+    var colorFondo = Color.White
+    when(fecha) {
+        "HOY"  -> colorFondo = Color.Cyan
+        "Ayer" -> colorFondo = Color.LightGray
+    }
+
     Card() {
         Box(modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(topStart = 30.dp))
             .clip(CutCornerShape(bottomEnd = 30.dp))
-            .background(Color.LightGray)
-            .border(5.dp, MaterialTheme.colors.background, shape)
-            .padding(14.dp)
+            .background(colorFondo)
+            .border(3.dp, Color.Black, shape)
+            .padding(16.dp)
         ) {
         Column( )
         {
@@ -133,9 +141,7 @@ fun MostarPagos(resumenVenta: ResumenVenta,
                 )
             }
 
-
                 Column() {
-
 
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -184,11 +190,11 @@ fun MostarPagos(resumenVenta: ResumenVenta,
                             )
                     }
                 }
-            Divider(color = Color.White, thickness = 1.dp)
+            Divider(color = Color.Black, thickness = 1.dp)
             Text(
-                text = "Fecha ${fecha}",
+                text = fecha,
                 style = MaterialTheme.typography.h5,
-                fontSize = 12.sp,
+                fontSize = 14.sp,
                 textAlign = TextAlign.Right,
                 modifier = Modifier.fillMaxWidth()
             )
@@ -201,6 +207,18 @@ fun MostarPagos(resumenVenta: ResumenVenta,
 
 
     }
+}
+
+fun fechadia(Fecha:Int):String {
+    val hoy = convertDateToInt(Date())
+    val diff=hoy-Fecha
+    var mess = ""
+    when(diff) {
+        0 -> mess="HOY"
+        1 -> mess="Ayer"
+        else -> mess = convertIntToTimeScreen(Fecha)
+    }
+    return mess
 }
 
 
